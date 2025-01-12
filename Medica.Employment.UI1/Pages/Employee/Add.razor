@@ -1,0 +1,94 @@
+﻿@page "/employee/add"
+
+@inject Services.Contracts.IEmployeeService EmployeeService
+@using Medica.Employment.Domain.Entities
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+<h3>Add Employee</h3>
+
+<EditForm Model="@Employee" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>First Name:</label>
+        <InputText @bind-Value="Employee.FirstName" class="form-control" />
+    </div>
+    <div>
+        <label>Last Name:</label>
+        <InputText @bind-Value="Employee.LastName" class="form-control" />
+    </div>
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="Employee.Email" class="form-control" />
+    </div>
+    <div>
+        <label>Telephone:</label>
+        <InputText @bind-Value="Employee.Telephone" class="form-control" />
+    </div>
+    <div>
+        <label>Date of Birth:</label>
+        <InputDate @bind-Value="Employee.DateOfBirth" class="form-control" />
+    </div>
+    <div>
+        <label>Address 1:</label>
+        <InputText @bind-Value="Employee.Address1" class="form-control" />
+    </div>
+    <div>
+        <label>Address 2:</label>
+        <InputText @bind-Value="Employee.Address2" class="form-control" />
+    </div>
+    <div>
+        <label>Town:</label>
+        <InputText @bind-Value="Employee.Town" class="form-control" />
+    </div>
+    <div>
+        <label>County:</label>
+        <InputText @bind-Value="Employee.County" class="form-control" />
+    </div>
+    <div>
+        <label>Postcode:</label>
+        <InputText @bind-Value="Employee.Postcode" class="form-control" />
+    </div>
+    <div>
+        <label>Job Title:</label>
+        <InputText @bind-Value="Employee.JobTitle" class="form-control" />
+    </div>
+    <div>
+        <label>Team:</label>
+        <InputText @bind-Value="Employee.Team" class="form-control" />
+    </div>
+    <div>
+        <label>Line Manager:</label>
+        <InputText @bind-Value="Employee.LineManager" class="form-control" />
+    </div>
+    <div>
+        <label>Start Date:</label>
+        <InputDate @bind-Value="Employee.StartDate" class="form-control" />
+    </div>
+    <div>
+        <label>Profile Picture:</label>
+        <InputText @bind-Value="Employee.ProfilePicture" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+</EditForm>
+
+@code {
+    private Employee Employee = new();
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            await EmployeeService.AddEmployee(Employee);
+            Console.WriteLine("Employee added successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
