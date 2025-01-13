@@ -101,47 +101,14 @@ namespace Medica.Employment.Tests
             Assert.Equal("Alice", createdEmployee.FirstName);
         }
 
-        //[Fact]
-        //public async Task PutEmployee_UpdatesExistingEmployee()
-        //{
-        //    // Arrange
-        //    var updatedEmployee = new Employee
-        //    {
-        //        Id = 1,
-        //        FirstName = "UpdatedFirstName",
-        //        LastName = "Smith",
-        //        Email = "johnsmith@medica.co.uk",
-        //        Telephone = "07894000111",
-        //        DateOfBirth = new DateTime(1990, 12, 20),
-        //        Address1 = "1 Main Street",
-        //        Address2 = "1 Main Street",
-        //        Town = "Townsville",
-        //        County = "Big County",
-        //        Postcode = "TN12 3AB",
-        //        JobTitle = "Purchasing Assistant",
-        //        Team = "Finance",
-        //        LineManager = "Sienna Lin",
-        //        StartDate = new DateTime(2023, 10, 31),
-        //        ProfilePicture = "profile2.png"
-        //    };
-
-        //    _mockRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Employee>())).Returns(Task.CompletedTask);
-
-        //    // Act
-        //    var result = await _controller.PutEmployee(updatedEmployee.Id, updatedEmployee);
-
-        //    // Assert
-        //    var actionResult = Assert.IsType<IActionResult>(result);
-        //    Assert.IsType<NoContentResult>(actionResult);
-        //}
-
+     
         [Fact]
         public async Task DeleteEmployee_DeletesEmployeeSuccessfully()
         {
             // Arrange
             var employeeToDelete = new Employee
             {
-                Id = 1,
+                Id = 4,
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@medica.co.uk",
@@ -159,15 +126,17 @@ namespace Medica.Employment.Tests
                 ProfilePicture = "profile4.png"
             };
 
-            _mockRepo.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(employeeToDelete);
-            _mockRepo.Setup(repo => repo.DeleteAsync(1)).Returns(Task.CompletedTask);
+            _mockRepo.Setup(repo => repo.GetByIdAsync(4)).ReturnsAsync(employeeToDelete);
+            _mockRepo.Setup(repo => repo.DeleteAsync(4)).Returns(Task.CompletedTask);
 
             // Act
-            var result = await _controller.DeleteEmployee(1);
-
+            var result = await _controller.DeleteEmployee(4);
             // Assert
-            var actionResult = Assert.IsType<IActionResult>(result);
-            Assert.IsType<NoContentResult>(actionResult);
+            var actionResult = Assert.IsType<NoContentResult>(result);
+
+            // Verify repository methods were called
+            _mockRepo.Verify(repo => repo.GetByIdAsync(4), Times.Once());
+            _mockRepo.Verify(repo => repo.DeleteAsync(4), Times.Once());
         }
 
         // Helper function to return sample data

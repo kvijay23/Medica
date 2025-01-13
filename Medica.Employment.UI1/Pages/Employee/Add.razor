@@ -1,48 +1,58 @@
 ﻿@page "/employee/add"
 
 @inject Services.Contracts.IEmployeeService EmployeeService
+@inject FluentValidation.IValidator<Employee> EmployeeValidator
+@using Blazored.FluentValidation
 @using Medica.Employment.Domain.Entities
-@using System.ComponentModel.DataAnnotations
 @inject HttpClient Http
+@inject NavigationManager Navigation
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>Add Employee</PageTitle>
 <h3>Add Employee</h3>
 
 <EditForm Model="@Employee" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
+    <FluentValidationValidator Validator="EmployeeValidator" />
     <ValidationSummary />
 
     <div>
         <label>First Name:</label>
         <InputText @bind-Value="Employee.FirstName" class="form-control" />
+        <ValidationMessage For="@(() => Employee.FirstName)" />
     </div>
     <div>
         <label>Last Name:</label>
         <InputText @bind-Value="Employee.LastName" class="form-control" />
+        <ValidationMessage For="@(() => Employee.LastName)" />
     </div>
     <div>
         <label>Email:</label>
         <InputText @bind-Value="Employee.Email" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Email)" />
     </div>
     <div>
         <label>Telephone:</label>
         <InputText @bind-Value="Employee.Telephone" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Telephone)" />
     </div>
     <div>
         <label>Date of Birth:</label>
         <InputDate @bind-Value="Employee.DateOfBirth" class="form-control" />
+        <ValidationMessage For="@(() => Employee.DateOfBirth)" />
     </div>
     <div>
         <label>Address 1:</label>
         <InputText @bind-Value="Employee.Address1" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Address1)" />
     </div>
     <div>
         <label>Address 2:</label>
         <InputText @bind-Value="Employee.Address2" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Address1)" />
     </div>
     <div>
         <label>Town:</label>
         <InputText @bind-Value="Employee.Town" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Town)" />
     </div>
     <div>
         <label>County:</label>
@@ -51,10 +61,12 @@
     <div>
         <label>Postcode:</label>
         <InputText @bind-Value="Employee.Postcode" class="form-control" />
+        <ValidationMessage For="@(() => Employee.Postcode)" />
     </div>
     <div>
         <label>Job Title:</label>
         <InputText @bind-Value="Employee.JobTitle" class="form-control" />
+        <ValidationMessage For="@(() => Employee.JobTitle)" />
     </div>
     <div>
         <label>Team:</label>
@@ -63,10 +75,12 @@
     <div>
         <label>Line Manager:</label>
         <InputText @bind-Value="Employee.LineManager" class="form-control" />
+        <ValidationMessage For="@(() => Employee.LineManager)" />
     </div>
     <div>
         <label>Start Date:</label>
         <InputDate @bind-Value="Employee.StartDate" class="form-control" />
+        <ValidationMessage For="@(() => Employee.StartDate)" />
     </div>
     <div>
         <label>Profile Picture:</label>
@@ -85,6 +99,7 @@
         {
             await EmployeeService.AddEmployee(Employee);
             Console.WriteLine("Employee added successfully.");
+            Navigation.NavigateTo("employee/list");
         }
         catch (Exception ex)
         {

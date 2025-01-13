@@ -60,7 +60,6 @@ namespace Medica.Employment.API.Controllers
 
         // POST: api/Employee
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
         {
             // Check if the model is valid

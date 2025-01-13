@@ -3,6 +3,9 @@ using Medica.Employment.UI.Services.Contracts;
 using Medica.Employment.UI;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Medica.Employment.Domain.Validators;
+using FluentValidation;
+using Medica.Employment.Domain.Entities;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,6 +21,8 @@ builder.Services.AddScoped(sp =>
     new HttpClient { BaseAddress = new Uri(baseAddress) });
 
 
-
+// Add FluentValidation
+//builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
+builder.Services.AddScoped<IValidator<Employee>, EmployeeValidator>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 await builder.Build().RunAsync();

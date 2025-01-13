@@ -27,6 +27,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Job Title</th>
+                        <th>Line Manager</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -37,8 +38,9 @@
                             <td>@employee.FirstName @employee.LastName</td>
                             <td>@employee.Email</td>
                             <td>@employee.JobTitle</td>
+                            <td>@employee.LineManager</td>
                             <td>
-                                <button class="btn btn-primary btn-sm me-2" @onclick="() => EditEmployee(employee.Id)">Edit</button>
+                                <button class="btn btn-primary btn-sm me-2" >Edit</button>
                                 <button class="btn btn-danger btn-sm" @onclick="() => ConfirmDelete(employee.Id)">Delete</button>
                             </td>
                         </tr>
@@ -61,11 +63,6 @@
     private void AddEmployee()
     {
         Navigation.NavigateTo("employee/add");
-    }
-
-    private void EditEmployee(int id)
-    {
-       // Navigation.NavigateTo($"/employee-form/{id}");
     }
 
     private async Task DeleteEmployee(int id)

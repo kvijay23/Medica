@@ -43,7 +43,7 @@ namespace Medica.Employment.UI.Services
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("api/employee", employee);
-                response.EnsureSuccessStatusCode();  // Will throw an exception for non-success status codes
+                response.EnsureSuccessStatusCode();  
 
                 _logger.LogInformation($"Employee {employee.FirstName} {employee.LastName} added successfully.");
             }
@@ -67,7 +67,7 @@ namespace Medica.Employment.UI.Services
             try
             {
                 var response = await _httpClient.PutAsJsonAsync($"api/employee/{employee.Id}", employee);
-                response.EnsureSuccessStatusCode();  // Will throw an exception for non-success status codes
+                response.EnsureSuccessStatusCode();  
 
                 _logger.LogInformation($"Employee {employee.FirstName} {employee.LastName} updated successfully.");
             }
@@ -91,9 +91,6 @@ namespace Medica.Employment.UI.Services
             try
             {
                 var response = await _httpClient.DeleteAsync($"api/employee/{id}");
-                response.EnsureSuccessStatusCode();  // Will throw an exception for non-success status codes
-
-                _logger.LogInformation($"Employee with ID {id} deleted successfully.");
             }
             catch (HttpRequestException e)
             {
